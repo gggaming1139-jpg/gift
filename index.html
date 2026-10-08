@@ -1,0 +1,799 @@
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sebuah Kejutan Untukmu 🤩</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", Arial, sans-serif;
+    }
+
+    html {
+        min-height: 100%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background: linear-gradient(135deg, #ffd6e7, #ffeef5, #e8d9ff);
+        color: #4a3040;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* =========================
+       BACKGROUND HEARTS
+    ========================= */
+
+    .heart {
+        position: fixed;
+        bottom: -30px;
+        font-size: 20px;
+        opacity: 0.6;
+        animation: floatUp linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        from {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+
+        20% {
+            opacity: 0.7;
+        }
+
+        to {
+            transform: translateY(-110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .page {
+        position: relative;
+        width: 100%;
+        min-height: 100dvh;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px 18px;
+        overflow-x: hidden;
+    }
+
+    .page.active {
+        display: flex;
+        animation: pageIn 0.7s ease both;
+    }
+
+    @keyframes pageIn {
+        from {
+            opacity: 0;
+            transform: scale(1.03);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .content {
+        width: 100%;
+        max-width: 700px;
+        padding: 35px 20px;
+        margin: auto;
+    }
+
+    /* =========================
+       TYPOGRAPHY
+    ========================= */
+
+    h1 {
+        font-size: clamp(40px, 8vw, 75px);
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: clamp(28px, 6vw, 48px);
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 17px;
+        line-height: 1.8;
+        margin-bottom: 25px;
+    }
+
+    .subtitle {
+        font-size: 19px;
+        opacity: 0.8;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    button {
+        touch-action: manipulation;
+        border: none;
+        padding: 15px 35px;
+        border-radius: 50px;
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+        background: linear-gradient(135deg, #ff6f9f, #c77dff);
+        box-shadow: 0 10px 25px rgba(200, 100, 160, 0.25);
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 15px 30px rgba(200, 100, 160, 0.35);
+    }
+
+    /* =========================
+       WELCOME
+    ========================= */
+
+    .welcome-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.15);
+        }
+    }
+
+    /* =========================
+       GUIDE CARD
+    ========================= */
+
+    .card {
+        background: rgba(255,255,255,0.65);
+        backdrop-filter: blur(12px);
+        padding: 35px;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(120,70,100,0.15);
+    }
+
+    .steps {
+        text-align: left;
+        margin: 25px 0;
+    }
+
+    .steps div {
+        margin: 15px 0;
+        padding: 12px 15px;
+        background: rgba(255,255,255,0.55);
+        border-radius: 15px;
+    }
+
+    /* =========================
+       GIFT
+    ========================= */
+
+    .gift {
+        touch-action: manipulation;
+        font-size: 120px;
+        cursor: pointer;
+        display: inline-block;
+        animation: shake 1.5s infinite;
+        margin: 20px;
+    }
+
+    @keyframes shake {
+        0%, 100% {
+            transform: rotate(0);
+        }
+
+        25% {
+            transform: rotate(-8deg);
+        }
+
+        75% {
+            transform: rotate(8deg);
+        }
+    }
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    .message-box {
+        background: rgba(255,255,255,0.7);
+        padding: 35px;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(120,70,100,0.15);
+    }
+
+    .typing {
+        min-height: 160px;
+        text-align: left;
+        font-size: 17px;
+        line-height: 2;
+    }
+
+    /* =========================
+       CONFETTI
+    ========================= */
+
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        top: -20px;
+        animation: confettiFall 3s linear forwards;
+        pointer-events: none;
+    }
+
+    @keyframes confettiFall {
+        to {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .small {
+        margin-top: 25px;
+        font-size: 14px;
+        opacity: 0.6;
+    }
+
+
+    /* =========================
+       MOBILE RESPONSIVE
+    ========================= */
+    @media (max-width: 600px) {
+        .page {
+            min-height: 100dvh;
+            padding: 30px 14px;
+            align-items: flex-start;
+        }
+
+        .content {
+            padding: 28px 12px;
+            margin-top: 6vh;
+            margin-bottom: 6vh;
+        }
+
+        .card,
+        .message-box {
+            padding: 24px 18px;
+            border-radius: 24px;
+        }
+
+        h1 {
+            font-size: clamp(34px, 12vw, 54px);
+            line-height: 1.15;
+        }
+
+        h2 {
+            font-size: clamp(25px, 8vw, 38px);
+            line-height: 1.2;
+        }
+
+        p,
+        .typing {
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .subtitle {
+            font-size: 17px;
+        }
+
+        .welcome-icon {
+            font-size: 64px;
+        }
+
+        .gift {
+            font-size: 95px;
+            margin: 12px;
+        }
+
+        .steps div {
+            margin: 12px 0;
+            padding: 12px;
+        }
+
+        button {
+            min-height: 48px;
+            padding: 13px 24px;
+            font-size: 15px;
+            -webkit-tap-highlight-color: transparent;
+        }
+    }
+
+    /* Music button */
+    #musicControl {
+        position: fixed;
+        right: 14px;
+        bottom: 14px;
+        z-index: 9999;
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        background: rgba(255,255,255,0.82);
+        color: #7a4760;
+        border: 1px solid rgba(255,255,255,0.7);
+        box-shadow: 0 8px 25px rgba(80,40,70,0.18);
+        backdrop-filter: blur(10px);
+    }
+
+    #musicControl:hover {
+        transform: scale(1.05);
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop preload="auto" playsinline>
+    <!-- Ganti URL di bawah dengan file musik MP3 milikmu -->
+    <source src="TULUS - Jatuh Suka.mp3.mpeg" type="audio/mpeg">
+</audio>
+
+<button id="musicControl" type="button" aria-label="Putar atau jeda musik" title="Musik">
+    🔇
+</button>
+
+
+<!-- BACKGROUND HEARTS -->
+<div id="hearts"></div>
+
+
+<!-- =========================
+     PAGE 1
+========================= -->
+
+<section class="page active" id="page1">
+
+    <div class="content">
+
+        <div class="welcome-icon">🤩</div>
+
+        <h1>Selamat Datang</h1>
+
+        <p class="subtitle">
+            Ada sesuatu yang ingin aku tunjukkan untukmu...
+        </p>
+
+        <br>
+
+        <button onclick="nextPage(2)">
+            Mulai ✨
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 2
+========================= -->
+
+<section class="page" id="page2">
+
+    <div class="content card">
+
+        <h2>Sebelum Lanjut... 🌷</h2>
+
+        <p>
+            Ada sedikit panduan sebelum kamu melanjutkan
+            perjalanan kecil ini.
+        </p>
+
+        <div class="steps">
+
+            <div>
+                🌸 <b>Langkah 1</b><br>
+                Baca setiap pesan sampai selesai.
+            </div>
+
+            <div>
+                🙌🏻 <b>Langkah 2</b><br>
+                Jangan terlalu cepat menebak apa yang ada di akhir.
+            </div>
+
+            <div>
+                🎁 <b>Langkah 3</b><br>
+                Nikmati saja kejutan kecil ini.
+            </div>
+
+        </div>
+
+        <button onclick="nextPage(3)">
+            Aku Siap 😁
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 3
+========================= -->
+
+<section class="page" id="page3">
+
+    <div class="content">
+
+        <h2>Ada Sebuah Kejutan 🎁</h2>
+
+        <p>
+            Tapi untuk membukanya...
+            kamu harus menekan kotak di bawah ini.
+        </p>
+
+        <div class="gift" onclick="openGift()">
+            🎁
+        </div>
+
+        <p class="small">
+            Klik kotaknya 👆
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 4
+========================= -->
+
+<section class="page" id="page4">
+
+    <div class="content">
+
+        <div class="welcome-icon">
+            ✨
+        </div>
+
+        <h1>Surprise! 🥳</h1>
+
+        <p>
+            Kalau kamu sudah sampai di sini,
+            berarti kamu berhasil membuka kejutan kecil ini.
+        </p>
+
+        <button onclick="nextPage(5)">
+            Ada Satu Hal Lagi 💌
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 5
+========================= -->
+
+<section class="page" id="page5">
+
+    <div class="content message-box">
+
+        <h2>Untukmu </h2>
+
+        <div class="typing" id="typingText"></div>
+
+        <br>
+
+        <button onclick="nextPage(6)">
+            Lanjut ✨
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 6
+========================= -->
+
+<section class="page" id="page6">
+
+    <div class="content">
+
+        <div class="welcome-icon">
+            🌷
+        </div>
+
+        <h2>Terima Kasih Sudah Sampai di Sini</h2>
+
+        <p>
+            Semoga kejutan kecil ini bisa membuatmu tersenyum
+            dan memberikan sedikit kebahagiaan hari ini.
+        </p>
+
+        <p>
+             Jangan lupa tersenyum.
+        </p>
+
+        <button onclick="restart()">
+            Ulangi dari Awal 🔄
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function nextPage(number) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const targetPage = document.getElementById("page" + number);
+    targetPage.classList.add("active");
+
+    // Selalu mulai dari bagian atas saat pindah halaman
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    if (number === 5) {
+        startTyping();
+    }
+}
+
+
+/* =========================
+   OPEN GIFT
+========================= */
+
+function openGift() {
+
+    createConfetti();
+
+    setTimeout(() => {
+        nextPage(4);
+    }, 1000);
+
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+function createConfetti() {
+
+    for (let i = 0; i < 100; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.classList.add("confetti");
+
+        confetti.innerHTML =
+            ["🌹", "✨", "🌼", "🌸", "🎉"][Math.floor(Math.random() * 5)];
+
+        confetti.style.left =
+            Math.random() * 100 + "vw";
+
+        confetti.style.fontSize =
+            (Math.random() * 15 + 10) + "px";
+
+        confetti.style.animationDuration =
+            (Math.random() * 2 + 2) + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
+    }
+}
+
+
+/* =========================
+   TYPING EFFECT
+========================= */
+
+let typingStarted = false;
+
+function startTyping() {
+
+    if (typingStarted) return;
+
+    typingStarted = true;
+
+    const text = `
+Hallo, Lonaa
+Mungkin kata-kata ini sederhana, tapi aku menuliskannya dengan tulus.
+Terima kasih karena sudah menjadi seseorang yang begitu berarti.
+
+Terima kasih untuk setiap senyum, setiap cerita, setiap waktu,
+dan setiap hal kecil yang mungkin terlihat sederhana,
+tetapi ternyata memiliki arti yang besar. Ga kerasa hampir 1 tahun sudah
+bisa kenal denganmu dan berteman denganmu. Banyak sekali hal baru yang
+aku dapetin, dengan kehadiranmu banyak perubahan bagi diriku.
+Dirimu jg jadi salah satu alasan bagiku semangat kuliah,
+karnamu jg aku jd paham menghargai sesuatu ataupun seseorang.
+Sekali lagi terimakasih telah hadir dan menjadi seseorang
+yang berarti di sela-sela hidupku.
+
+Semoga hari-harimu selalu dipenuhi hal-hal baik.
+
+BTW SELAMAT S.PKL ANJAYY
+
+Dan semoga, ketika kamu melihat halaman ini lagi,
+kamu selalu ingat bahwa ada seseorang yang pernah membuat
+kejutan kecil hanya untuk melihatmu tersenyum.
+
+MAAP KALO ALAYY
+
+🫰🏻🫰🏻🫰🏻
+`;
+
+    const element = document.getElementById("typingText");
+
+    let index = 0;
+
+    function type() {
+
+        if (index < text.length) {
+
+            element.innerHTML +=
+                text.charAt(index) === "\n"
+                ? "<br>"
+                : text.charAt(index);
+
+            index++;
+
+            setTimeout(type, 25);
+        }
+
+    }
+
+    type();
+}
+
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+function createHearts() {
+
+    const container = document.getElementById("hearts");
+
+    setInterval(() => {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.innerHTML =
+            ["🍀", "🩷", "✨", "❄️", "🌸"][Math.floor(Math.random() * 5)];
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+        heart.style.fontSize =
+            (Math.random() * 20 + 15) + "px";
+
+        heart.style.animationDuration =
+            (Math.random() * 5 + 5) + "s";
+
+        container.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 10000);
+
+    }, 700);
+
+}
+
+createHearts();
+
+
+
+/* =========================
+   BACKGROUND MUSIC
+========================= */
+
+const bgMusic = document.getElementById("bgMusic");
+const musicControl = document.getElementById("musicControl");
+let musicStarted = false;
+
+async function playMusic() {
+    try {
+        bgMusic.volume = 0.45;
+        await bgMusic.play();
+        musicStarted = true;
+        musicControl.textContent = "🎵";
+    } catch (error) {
+        // Browser HP dapat memblokir autoplay sebelum interaksi pengguna.
+        musicControl.textContent = "🔇";
+    }
+}
+
+function toggleMusic() {
+    if (bgMusic.paused) {
+        playMusic();
+    } else {
+        bgMusic.pause();
+        musicControl.textContent = "🔇";
+    }
+}
+
+musicControl.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleMusic();
+});
+
+/*
+ * Coba autoplay saat halaman dibuka.
+ * Jika browser HP memblokirnya, musik akan mulai pada
+ * sentuhan/klik pertama pengguna.
+ */
+window.addEventListener("load", () => {
+    playMusic();
+});
+
+["touchstart", "pointerdown", "click", "keydown"].forEach(eventName => {
+    document.addEventListener(eventName, () => {
+        if (!musicStarted) playMusic();
+    }, { once: true, passive: true });
+});
+
+
+/* =========================
+   RESTART
+========================= */
+
+function restart() {
+
+    window.scrollTo(0, 0);
+    location.reload();
+
+}
+
+</script>
+
+</body>
+</html>
